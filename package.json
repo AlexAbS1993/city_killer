@@ -1,0 +1,31 @@
+{
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
+    "typescript": "^5.8.3"
+  },
+  "name": "city_killer",
+  "version": "0.1.0",
+  "description": "Приложение для соло-игры в Городского убийцу",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexAbS1993/city_killer.git"
+  },
+  "keywords": [
+    "city",
+    "killer",
+    "boardgame",
+    "solo"
+  ],
+  "author": "Alex Abetov <abetovalex93@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/AlexAbS1993/city_killer/issues"
+  },
+  "homepage": "https://github.com/AlexAbS1993/city_killer#readme"
+}
