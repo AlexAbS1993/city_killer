@@ -1,4 +1,4 @@
-import { describe, test, expect } from '@jest/globals'
+import { describe, test, expect, jest } from '@jest/globals'
 import { District } from '../../src/map/District'
 import { CONSTS } from '../../global/constantas'
 
@@ -39,6 +39,38 @@ describe('Сущность Disctict определяет район игрово
         })
         test('Сущность имеет конфигурационную опцию в 3 в качестве максимального количества жителей в ней', () => {
             expect(config.max_citizen).toBe(MAX_C)
+        })
+    })
+    describe('Сущность является частью игрового поля и взаимодействует с другими игровыми элементами', () => {
+        const citizen_one = { job: 'Worker' }
+        const citizen_two = { job: 'Artist' }
+        const citizen_three = { job: 'Teacher' }
+        const citizen_4 = { job: 'Driver' }
+        const building_one = {}
+        const building_two = {}
+        const copyCitizenError = 'Невозможно добавить'
+        const fullDistrictError = 'Район переполнен'
+        test('В district можно добавить жителя', () => {
+            test_district.addCitizen(citizen_one)
+            expect(test_district.countOfCitizens()).toBe(1)
+        })
+        test('В district невозможно добавить одного и того же жителя дважды', () => {
+            try {
+                test_district.addCitizen(citizen_one)
+            }
+            catch (e: any) {
+                expect(e.message).toMatch(copyCitizenError)
+            }
+        })
+        test('В District невозможно добавить более 3 жителей', () => {
+            test_district.addCitizen(citizen_two)
+            test_district.addCitizen(citizen_three)
+            try {
+                test_district.addCitizen(citizen_4)
+            }
+            catch (e: any) {
+                expect(e.message).toMatch(fullDistrictError)
+            }
         })
     })
 })

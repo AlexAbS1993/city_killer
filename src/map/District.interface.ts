@@ -7,4 +7,7 @@ export interface IDistrict {
     getTitle(): string
     getOrder(): number
     getConfig(): DistrictConfigType
+    addCitizen(citizen: unknown): this
+    countOfCitizens(): number
+    checkPlace(): Error | void
 }
