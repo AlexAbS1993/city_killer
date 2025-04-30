@@ -6,13 +6,39 @@ describe('Сущность Disctict определяет район игрово
     const DIST_TITLE = 'Metrogorodok'
     const DIST_ORDER = 0
     const test_district = new District(DIST_TITLE, DIST_ORDER)
-    test('Сущность Disctrict после создания инициализируется и является собой', () => {
-        expect(new District('Center', 0) instanceof District).toBe(true)
+    describe('Инициализация сущности District', () => {
+        test('Сущность Disctrict после создания инициализируется и является собой', () => {
+            expect(new District('Center', 0) instanceof District).toBe(true)
+        })
+        test('У сущности District можно получить его название и порядковый номер на карте (он всегда закреплён и является постоянным)', () => {
+            expect(typeof test_district.getTitle()).toBe(CONSTS.string)
+            expect(test_district.getTitle()).toBe(DIST_TITLE)
+            expect(typeof test_district.getOrder()).toBe(CONSTS.number)
+            expect(test_district.getOrder()).toBe(DIST_ORDER)
+        })
     })
-    test('У сущности District можно получить его название и порядковый номер на карте (он всегда закреплён и является постоянным)', () => {
-        expect(typeof test_district.getTitle()).toBe(CONSTS.string)
-        expect(test_district.getTitle()).toBe(DIST_TITLE)
-        expect(typeof test_district.getOrder()).toBe(CONSTS.number)
-        expect(test_district.getOrder()).toBe(DIST_ORDER)
+    describe('У сущности Disctrict есть внутренние конфигурационные правила, описывающие игровые ограничения', () => {
+        const config = test_district.getConfig()
+        const MAX_B = 1
+        const MAX_C = 3
+        const readOnlyErrorMessage = 'Cannot assign to read only property'
+        test('У сущности District есть конфигурационный файл', () => {
+            expect(config).toBeDefined()
+        })
+        test('Конфигурационный файл невозможно изменить вручную', () => {
+            try {
+                config.max_building = 5
+            }
+            catch (e: any) {
+                expect(e.message).toMatch(readOnlyErrorMessage)
+            }
+            expect(test_district.getConfig().max_building).toBe(MAX_B)
+        })
+        test('Сущность имеет конфигурационную опцию в 1 доступное место для здания', () => {
+            expect(config.max_building).toBe(MAX_B)
+        })
+        test('Сущность имеет конфигурационную опцию в 3 в качестве максимального количества жителей в ней', () => {
+            expect(config.max_citizen).toBe(MAX_C)
+        })
     })
 })
