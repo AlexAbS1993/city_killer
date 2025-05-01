@@ -17,7 +17,8 @@
 
 ## Установка и запуск
 
-git clone <repository>
+git clone [repository]
+npm run start
 
 ## Контакты
 
