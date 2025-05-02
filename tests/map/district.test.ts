@@ -42,14 +42,17 @@ describe('Сущность Disctict определяет район игрово
         })
     })
     describe('Сущность является частью игрового поля и взаимодействует с другими игровыми элементами', () => {
+        const HOSPITAL = 'hospital'
+        const FIRE_STATIOn = 'fire station'
         const citizen_one = { job: 'Worker' }
         const citizen_two = { job: 'Artist' }
         const citizen_three = { job: 'Teacher' }
         const citizen_4 = { job: 'Driver' }
-        const building_one = {}
-        const building_two = {}
+        const building_one = { getTitle() { return HOSPITAL } }
+        const building_two = { getTitle() { return FIRE_STATIOn } }
         const copyCitizenError = 'Невозможно добавить'
         const fullDistrictError = 'Район переполнен'
+        const onlyOneBuildingError = 'только одно здание'
         test('В district можно добавить жителя', () => {
             test_district.addCitizen(citizen_one)
             expect(test_district.countOfCitizens()).toBe(1)
@@ -70,6 +73,26 @@ describe('Сущность Disctict определяет район игрово
             }
             catch (e: any) {
                 expect(e.message).toMatch(fullDistrictError)
+            }
+        })
+        test('Можно получить список жителей, находящихся в районе', () => {
+            let citizens = test_district.getCitizens()
+            expect(citizens.length).toBe(test_district.countOfCitizens())
+            //@ts-ignore
+            expect(citizens.every((c: unknown) => c.job !== undefined)).toBeTruthy()
+        })
+        test('В District можно добавить здание', () => {
+            test_district.addBuilding(building_one)
+            expect(test_district.isBuildingHere()).toBeTruthy()
+            //@ts-ignore
+            expect(test_district.getBuilding().getTitle()).toBe(HOSPITAL)
+        })
+        test('Здание можно добавить только один раз', () => {
+            try {
+                test_district.addBuilding(building_two)
+            }
+            catch (e: any) {
+                expect(e.message).toMatch(onlyOneBuildingError)
             }
         })
     })
