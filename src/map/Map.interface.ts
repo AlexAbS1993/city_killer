@@ -20,4 +20,8 @@ export interface IGameMap {
     getModeInfo(): modeInfoType
     getDistrictByIndex(index: number): IDistrict
     getDistrictByTitle(title: districtTytlesType): IDistrict
+    addCitizen(citizen: unknown, id: number): IGameMap | Error
+    removeCitizen(citizenJob: string, id: number): IGameMap | Error
+    getCitizenTempStorage(): unknown
+    moveCitizen(citizenJob: string, idFrom: number, idTo: number): IGameMap | Error
 }
