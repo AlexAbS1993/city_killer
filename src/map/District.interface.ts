@@ -13,4 +13,5 @@ export interface IDistrict {
     addBuilding(building: unknown): this | Error
     isBuildingHere(): boolean
     getBuilding(): unknown
+    removeCitizen(job: string): this | Error
 }

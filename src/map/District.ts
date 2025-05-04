@@ -19,6 +19,13 @@ export class District implements IDistrict {
         this.order = order
         Object.freeze(this.config)
     }
+    removeCitizen(job: string): this {
+        this.citizens = this.citizens.filter(cit => {
+            //@ts-ignore
+            return (cit.getJob?.() || cit.job) !== job
+        })
+        return this
+    }
     addBuilding(building: unknown): Error | this {
         this.checkBuildings()
         this.building = building
