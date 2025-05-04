@@ -81,6 +81,11 @@ describe('Сущность Disctict определяет район игрово
             //@ts-ignore
             expect(citizens.every((c: unknown) => c.job !== undefined)).toBeTruthy()
         })
+        test('Из District можно удалить жителя', () => {
+            test_district.removeCitizen(citizen_one.job)
+            let citizens = test_district.getCitizens()
+            expect(citizens.length).toBe(test_district.countOfCitizens())
+        })
         test('В District можно добавить здание', () => {
             test_district.addBuilding(building_one)
             expect(test_district.isBuildingHere()).toBeTruthy()
